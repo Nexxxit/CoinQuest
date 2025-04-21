@@ -11,7 +11,7 @@ export default function Label({htmlFor, labelText, type, placeholderText, labelC
     return (
         <label className={`${labelClassName} flex flex-col`} htmlFor={htmlFor}>
             {labelText}
-            <input className={`${inputClassName} `} id={htmlFor} type={type} placeholder={placeholderText} />
+            <input className={`${inputClassName} border rounded-lg placeholder:p-1`} id={htmlFor} type={type} placeholder={placeholderText} />
         </label>
     );
 }
