@@ -1,24 +1,38 @@
 interface Option {
-    value: string;
-    label: string;
+  value: string;
+  label: string;
 }
 
 interface DropdownProps {
-    name: string;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-    options: Option[];
-    dropdownClassName?: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  options: Option[];
+  dropdownClassName?: string;
+  required?: boolean;
 }
 
-export default function Dropdown({name, value, onChange, options, dropdownClassName}: DropdownProps) {
-    return (
-        <select name={name} value={value} onChange={onChange} className={`${dropdownClassName} border rounded-lg p-1`} >
-            {options.map((option) => (
-                <option key={option.value} value={option.value}>
-                    {option.label}
-                </option>
-            ))}
-        </select>
-    );
+export default function Dropdown({
+  name,
+  value,
+  onChange,
+  options,
+  dropdownClassName,
+  required,
+}: DropdownProps) {
+  return (
+    <select
+      name={name}
+      value={value}
+      onChange={onChange}
+      className={`${dropdownClassName} border-2 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 transition-colors`}
+      required={required}
+    >
+      {options.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
+  );
 }
