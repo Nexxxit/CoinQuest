@@ -10,6 +10,9 @@ interface DropdownProps {
   options: Option[];
   dropdownClassName?: string;
   required?: boolean;
+  labelText?: string;
+  htmlFor: string;
+  labelClassName?: string;
 }
 
 export default function Dropdown({
@@ -19,10 +22,16 @@ export default function Dropdown({
   options,
   dropdownClassName,
   required,
+  labelText,
+  labelClassName,
+  htmlFor,
 }: DropdownProps) {
   return (
-    <select
+    <label className={`${labelClassName} flex flex-col`} htmlFor={htmlFor}>
+      {labelText}
+      <select
       name={name}
+      id={htmlFor}
       value={value}
       onChange={onChange}
       className={`${dropdownClassName} border-2 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 transition-colors`}
@@ -34,5 +43,6 @@ export default function Dropdown({
         </option>
       ))}
     </select>
+    </label>
   );
 }
