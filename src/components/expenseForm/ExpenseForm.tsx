@@ -5,9 +5,9 @@ import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import transaction from "../../stores/transaction";
 
-// type CategoryKeywords = {
-//   [category: string]: string[];
-// };
+type CategoryKeywords = {
+  [category: string]: string[];
+};
 
 export default observer(function ExpenseForm() {
   const [amount, setAmount] = useState("");
@@ -47,7 +47,7 @@ export default observer(function ExpenseForm() {
 
     const newTransaction = {
       id: Date.now().toString(),
-      amount: Number(amount),
+      amount: parseFloat(amount.replace(/\s/g, "")),
       description,
       category,
       date: new Date(date),
@@ -62,16 +62,29 @@ export default observer(function ExpenseForm() {
     setCategory("Другое");
   };
 
-  // const categoryKeywords: CategoryKeywords = {
-  //   Транспорт: ["такси", "uber", "метро", "автобус"],
-  //   Еда: ["кафе", "ресторан", "продукты", "кофе"],
-  // };
+  const categoryKeywords: CategoryKeywords = {
+    Транспорт: ["такси", "uber", "метро", "автобус"],
+    Еда: ["кафе", "ресторан", "продукты", "кофе"],
+  };
+
+  const findCategory = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = event.target.value.toLowerCase();
+    const foundCategory = Object.entries(categoryKeywords).find(
+      ([category, keyword]) => {
+        return keyword.some((keyword) => value.includes(keyword.toLowerCase()));
+      }
+    );
+
+    if(foundCategory) {
+      setCategory(foundCategory[0]);
+    }
+  };
 
   const formatedNumberField = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     const cleanedValue = value.replace(/[^\d]/g, "");
 
-    const formattedValue = Number(cleanedValue).toLocaleString("ru-RU") 
+    const formattedValue = Number(cleanedValue).toLocaleString("ru-RU");
 
     setAmount(formattedValue);
   };
@@ -83,17 +96,17 @@ export default observer(function ExpenseForm() {
     >
       <div className="relative">
         <Field
-        type="text"
-        labelText="Сумма:"
-        htmlFor="amount"
-        placeholderText="1500 ₽"
-        required={true}
-        onChange={formatedNumberField}
-        value={amount}
-        title="Введите сумму!"
-        inputClassName="pr-12"
-      />
-      <span className="absolute right-4 top-1/2 transform">₽</span>
+          type="text"
+          labelText="Сумма:"
+          htmlFor="amount"
+          placeholderText="1500 ₽"
+          required={true}
+          onChange={formatedNumberField}
+          value={amount}
+          title="Введите сумму!"
+          inputClassName="pr-12"
+        />
+        <span className="absolute right-4 top-1/2 transform">₽</span>
       </div>
       <label className="flex flex-col" htmlFor="description">
         Описание:
@@ -103,6 +116,7 @@ export default observer(function ExpenseForm() {
           placeholder="Поездка на такси"
           onChange={(e) => {
             setDescription(e.target.value);
+            findCategory(e);
           }}
           value={description}
           maxLength={256}
