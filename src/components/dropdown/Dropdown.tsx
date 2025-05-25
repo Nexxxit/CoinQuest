@@ -27,22 +27,30 @@ export default function Dropdown({
   htmlFor,
 }: DropdownProps) {
   return (
-    <label className={`${labelClassName} flex flex-col`} htmlFor={htmlFor}>
+    <label
+      className={`${labelClassName} flex flex-col text-white`}
+      htmlFor={htmlFor}
+    >
       {labelText}
       <select
-      name={name}
-      id={htmlFor}
-      value={value}
-      onChange={onChange}
-      className={`${dropdownClassName} border-2 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 transition-colors`}
-      required={required}
-    >
-      {options.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </select>
+        name={name}
+        id={htmlFor}
+        value={value}
+        onChange={onChange}
+        className={`${dropdownClassName} w-full bg-white/5 rounded-lg py-3 px-4 text-white placeholder-white/50 
+                 focus:ring-2 focus:ring-purple-500 border border-white/20 transition-all`}
+        required={required}
+      >
+        {options.map((option) => (
+          <option
+            key={option.value}
+            value={option.value}
+            className="bg-gray-800 text-white hover:bg-purple-500"
+          >
+            {option.label}
+          </option>
+        ))}
+      </select>
     </label>
   );
 }

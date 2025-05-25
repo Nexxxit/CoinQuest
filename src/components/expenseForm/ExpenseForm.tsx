@@ -75,7 +75,7 @@ export default observer(function ExpenseForm() {
       }
     );
 
-    if(foundCategory) {
+    if (foundCategory) {
       setCategory(foundCategory[0]);
     }
   };
@@ -91,28 +91,32 @@ export default observer(function ExpenseForm() {
 
   return (
     <form
-      className="flex flex-col gap-3 p-2 flex-1 bg-indigo-300 rounded-xl"
+      className="flex flex-col gap-3 p-6 flex-1 shadow-2xl border border-white/20 backdrop-blur-lg rounded-xl"
       onSubmit={handleSubmit}
     >
+      <h2 className="text-2xl font-bold mb-4 text-white">Новая транзакция</h2>
       <div className="relative">
         <Field
           type="text"
           labelText="Сумма:"
           htmlFor="amount"
-          placeholderText="1500 ₽"
+          placeholderText="1500"
           required={true}
           onChange={formatedNumberField}
           value={amount}
           title="Введите сумму!"
           inputClassName="pr-12"
         />
-        <span className="absolute right-4 top-1/2 transform">₽</span>
+        <span className="absolute right-4 top-1/2 text-white/50 transform">
+          ₽
+        </span>
       </div>
-      <label className="flex flex-col" htmlFor="description">
+      <label className="flex flex-col text-white" htmlFor="description">
         Описание:
         <textarea
           id="description"
-          className="border-2 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 transition-colors"
+          className="w-full bg-white/5 rounded-lg py-3 px-4 text-white placeholder-white/50 
+                 focus:ring-2 focus:ring-purple-500 border border-white/20 transition-all"
           placeholder="Поездка на такси"
           onChange={(e) => {
             setDescription(e.target.value);
@@ -147,7 +151,7 @@ export default observer(function ExpenseForm() {
         name="type"
         required={true}
       />
-      <Button type="submit" label="Добавить" />
+      <Button className="w-full" type="submit" label="Добавить" />
     </form>
   );
 });

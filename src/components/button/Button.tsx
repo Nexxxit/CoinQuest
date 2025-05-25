@@ -7,7 +7,8 @@ interface ButtonProps {
 
 export default function Button({label, className, onClick, type = "button"}: ButtonProps) {
     return (
-        <button type={type} className={`${className} cursor-pointer shadow p-1 rounded-lg bg-indigo-500 hover:bg-blue-500`} onClick={onClick}>
+        <button type={type} className={`${className} cursor-pointer bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg
+               hover:scale-[1.02] transition-transform font-semibold shadow-lg`} onClick={onClick}>
             {label}
         </button>
     );
